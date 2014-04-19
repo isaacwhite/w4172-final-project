@@ -62,6 +62,12 @@
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-Editor-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-Editor-firstpass.dll</HintPath>
  </Reference>
+ <Reference Include="Assets\Editor\QCAR\Scripts\Qualcomm.Vuforia.UnityExtensions.Editor">
+ <HintPath>Assets\Editor\QCAR\Scripts\Qualcomm.Vuforia.UnityExtensions.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
+ <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
+ </Reference>
  <Reference Include="\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.Graphs">
  <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -73,12 +79,6 @@
  </Reference>
  <Reference Include="\Applications\Unity\Unity.app\Contents\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions">
  <HintPath>\Applications\Unity\Unity.app\Contents\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions">
- <HintPath>Assets\Qualcomm Augmented Reality\Scripts\Internal\Qualcomm.Vuforia.UnityExtensions.dll</HintPath>
- </Reference>
- <Reference Include="Assets\Editor\QCAR\Scripts\Qualcomm.Vuforia.UnityExtensions.Editor">
- <HintPath>Assets\Editor\QCAR\Scripts\Qualcomm.Vuforia.UnityExtensions.Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

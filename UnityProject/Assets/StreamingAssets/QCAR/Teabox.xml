@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+    <Tracking>
+        <ImageTarget size="753.000000 1310.338623" name="Jasmine.Left"/>
+        <ImageTarget size="753.000000 1310.338623" name="Jasmine.Right"/>
+        <ImageTarget size="798.000000 752.303284" name="Jasmine.Top"/>
+        <ImageTarget size="798.000000 752.303284" name="Jasmine.Bottom"/>
+        <ImageTarget size="798.000000 1309.126221" name="Jasmine.Front"/>
+        <ImageTarget size="798.000000 1309.126221" name="Jasmine.Back"/>
+        <MultiTarget name="Jasmine">
+            <Part rotation="AD: 0 1 0 -90" translation="-399.0 0 0" name="Jasmine.Left"/>
+            <Part rotation="AD: 0 1 0 90" translation="399.0 0 0" name="Jasmine.Right"/>
+            <Part rotation="AD: 1 0 0 0" translation="0 0 376.5" name="Jasmine.Front"/>
+            <Part rotation="AD: 0 1 0 180" translation="0 0 -376.5" name="Jasmine.Back"/>
+            <Part rotation="AD: 1 0 0 -90" translation="0 655.0 0" name="Jasmine.Top"/>
+            <Part rotation="AD: 1 0 0 90" translation="0 -655.0 0" name="Jasmine.Bottom"/>
+        </MultiTarget>
+    </Tracking>
+</QCARConfig>

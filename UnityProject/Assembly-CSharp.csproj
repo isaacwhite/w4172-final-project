@@ -71,6 +71,7 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\VirtualButtonBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WebCamBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WordBehaviour.cs" />
+     <Compile Include="Assets\hammer_reporter.cs" />
      <Compile Include="Assets\mole.cs" />
      <Compile Include="Assets\mole_behavior.cs" />
      <None Include="Assets\readme_SDK.txt" />

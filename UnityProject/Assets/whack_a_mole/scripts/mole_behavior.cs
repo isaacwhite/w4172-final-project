@@ -12,10 +12,13 @@ public class mole_behavior : MonoBehaviour {
 	private GameObject aMole;
 	private TextMesh yourScoreboard;
 	private TextMesh highScoreboard;
+	private TextMesh livesLeft;
 	private ArrayList jumpingMoles;
 	private Dictionary<string,int> isJumping;
 	private Dictionary<string,Vector3> targets;
+	private Dictionary<string,bool> wasHit;
 	private Queue<string> molesToWhack;
+	private AudioSource speaker;
 	private int jumpThreshold;
 	private int maxMoles;
 	public bool letsPlay;
@@ -24,15 +27,13 @@ public class mole_behavior : MonoBehaviour {
 	private float hammerSpeed;
 	private int hammerDirection;
 	private float strikingSpeed;
-	private AudioSource speaker;
-	public AudioClip boing;
-	public AudioClip carnival;
-	public AudioClip gameOver;
 	private int score;
-	private int hits;
-	private int jumpedCount;
 	private int highscore;
-	private bool gameIsOver;//used to determine if we should keep calling end of game stuff.
+	private int lives;
+	public AudioClip boing;
+	public AudioClip gameOver;
+	public AudioClip carnival;
+	private bool isGameOver;
 	void Start () {
 		
 	}
@@ -58,11 +59,12 @@ public class mole_behavior : MonoBehaviour {
 		moles [2] [2] = GameObject.Find ("mole_bottom_03");
 		moles [2] [3] = GameObject.Find ("mole_bottom_04");
 
-		gameIsOver = false;
+
 		aMole = moles [0] [0];
 		hammer = GameObject.Find ("mole_hammer");
-		highScoreboard = (TextMesh) GameObject.Find ("high_score").GetComponent (typeof(TextMesh));;
-		yourScoreboard = (TextMesh) GameObject.Find ("your_score").GetComponent (typeof(TextMesh));;
+		highScoreboard = (TextMesh) GameObject.Find ("high_score").GetComponent (typeof(TextMesh));
+		yourScoreboard = (TextMesh) GameObject.Find ("your_score").GetComponent (typeof(TextMesh));
+		livesLeft = (TextMesh)GameObject.Find ("lives_left").GetComponent (typeof(TextMesh));
 		startButton = GameObject.Find ("lets_play");
 		maxY = aMole.transform.localPosition.y;
 		print (maxY);
@@ -74,9 +76,10 @@ public class mole_behavior : MonoBehaviour {
 		minY = maxY - 150.0f;
 		isJumping = new Dictionary<string,int>(); //assign the dictionary.
 		targets = new Dictionary<string,Vector3> ();
-		jumpedCount = 0;
+		wasHit = new Dictionary<string,bool> ();
 		score = 0;
-		hits = 0;
+		highscore = 0;
+		lives = 10;
 
 		speaker = (AudioSource) gameObject.GetComponent (typeof(AudioSource));
 		//now set up the values
@@ -104,32 +107,34 @@ public class mole_behavior : MonoBehaviour {
 				theMole.transform.localPosition = target;
 				target = new Vector3(theMole.transform.localPosition.x,theMole.transform.localPosition.y + 600,theMole.transform.localPosition.z);
 				targets[hashIndex] = target; 
-			}
-		}
-		if (jumpedCount > hits) {
-			hits = 0;
-			jumpedCount = 0;
-			if(highscore < score) {
-				highscore = score;
-
+				wasHit[hashIndex] = false;
 			}
 		}
 		highScoreboard.text = highscore.ToString ();
 		score = 0;
 		yourScoreboard.text = score.ToString();
-		gameIsOver = false;
+		isGameOver = false;
+		lives = 10;
+		livesLeft.text = lives.ToString();
 	}
 	// Update is called once per frame
 	void Update () {
-		if (hits + 10 < jumpedCount) {
-			if(!gameIsOver) {
-				gameIsOver = true;
-				letsPlay = false;
-				print ("Your score: " + score.ToString ());
-				speaker.PlayOneShot(gameOver);
+
+
+		if ((lives < 0) && (!isGameOver)) {
+			isGameOver = true;
+			letsPlay = false;
+			print ("Your score: " + score.ToString ());
+			if(score > highscore) {
+				highscore = score;
+				highScoreboard.text = highscore.ToString ();
 			}
-		}
+			speaker.PlayOneShot(gameOver);
+		} 
 		if (letsPlay) {
+			if(lives > -1) {
+				livesLeft.text = lives.ToString ();
+			}
 			reset = false;
 			ListenForTaps();
 			TapSelect ();//add any necessary moles as moving
@@ -182,7 +187,11 @@ public class mole_behavior : MonoBehaviour {
 						mole.transform.localPosition = new Vector3(mole.transform.localPosition.x,newPosition,mole.transform.localPosition.z);
 						if ((direction == -1) && (mole.transform.localPosition.y < minY)) {
 								//time to make the mole stop moving.
-							jumpedCount++;
+							if(wasHit[moleName] == false) {
+								lives--;
+							} else {
+								wasHit[moleName] = false; //set it back.
+							}
 							isJumping [moleName] = 0;
 
 							toRemove.Add (mole);
@@ -238,35 +247,39 @@ public class mole_behavior : MonoBehaviour {
 	}
 
 	public void reportCollidedWith(string name) {
-		speaker.PlayOneShot (boing);
-		hits++;
 		score += 100;
 		yourScoreboard.text = score.ToString ();
 //		print (name);
 		hammerDirection = 1;//go back up, we hit something!
+		speaker.PlayOneShot (boing);
+		wasHit [name] = true;
 
 	}
 
 	void ListenForTaps() {
 		if (Input.GetMouseButtonDown (0)) {
-//			print ("tapped something!!");
+			print ("tapped something!!");
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			if(Physics.Raycast (ray,out hit, 20000)) {
 				Behaviour h;
 				string objectName = hit.collider.gameObject.name;
-				if((objectName == "mole_play") && (letsPlay == false)) {
-					ResetGame ();
-					letsPlay = true;
-					speaker.PlayOneShot (carnival);
-				} else if(letsPlay) {
-					if(objectName != "mole_hammer") {
-						currentTarget = targets[objectName];
-						hammerDirection = 0;
+				try {
+					if((objectName == "mole_play") && (letsPlay == false)) {
+						speaker.PlayOneShot (carnival);
+						ResetGame ();
+						letsPlay = true;
+					} else if(letsPlay) {
+						if(objectName != "mole_hammer") {
+							currentTarget = targets[objectName];
+							hammerDirection = 0;
+						}
 					}
+				} catch (System.Exception e) {
+					print (e.ToString ());
 				}
-
-//				hammer.transform.localPosition = targets[objectName];
+				
+			//				hammer.transform.localPosition = targets[objectName];
 			} else {
 				//we didn't hit anything. Let's turn off the selection.
 //				print ("no collision!");
@@ -281,11 +294,17 @@ public class mole_behavior : MonoBehaviour {
 				string objectName = hit.collider.gameObject.name;
 				print (objectName);
 				if((objectName == "mole_play") && (letsPlay == false)) {
+					speaker.PlayOneShot (carnival);
+					ResetGame ();
 					letsPlay = true;
 				} else if (letsPlay) {
-					if(objectName != "mole_hammer") {
-						currentTarget = targets[objectName];
-						hammerDirection = 0;
+					try {
+						if(objectName != "mole_hammer") {
+							currentTarget = targets[objectName];
+							hammerDirection = 0;
+						}
+					} catch (System.Exception e) {
+						print (e.ToString ());
 					}
 				}
 			}

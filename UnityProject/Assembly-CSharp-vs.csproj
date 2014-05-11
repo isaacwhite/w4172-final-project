@@ -64,6 +64,8 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\MultiTargetBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\QCARBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\SetBGCameraLayerBehaviour.cs" />
+     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\Shoot.cs" />
+     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TargetHit.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TextRecoBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TurnOffBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TurnOffWordBehaviour.cs" />
@@ -71,6 +73,7 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\VirtualButtonBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WebCamBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WordBehaviour.cs" />
+     <Compile Include="Assets\loadStatusBar.cs" />
      <Compile Include="Assets\mole.cs" />
      <Compile Include="Assets\whack_a_mole\scripts\hammer_reporter.cs" />
      <Compile Include="Assets\whack_a_mole\scripts\mole_behavior.cs" />

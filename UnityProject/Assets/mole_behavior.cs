@@ -73,6 +73,7 @@ public class mole_behavior : MonoBehaviour {
 		score = 0;
 		hits = 0;
 
+		gameObject.GetComponent (typeof(AudioSource));
 		//now set up the values
 		//would this be better if we used the object names instead?
 		ResetGame ();
@@ -100,6 +101,14 @@ public class mole_behavior : MonoBehaviour {
 				targets[hashIndex] = target; 
 			}
 		}
+		if (jumpedCount > hits) {
+			hits = 0;
+			jumpedCount = 0;
+			if(highscore < score) {
+				highscore = score;
+			}
+		}
+		highScoreboard.text = highscore.ToString ();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -135,7 +144,6 @@ public class mole_behavior : MonoBehaviour {
 
 			} else {
 				//we finished with the current target. Set the next target so it will get lerped to.
-//				print ("now get the next target!");
 			}
 		} else {
 			ListenForTaps();
@@ -147,33 +155,25 @@ public class mole_behavior : MonoBehaviour {
 	}
 
 	void moveMoles() {
-//		print ("trying to move!");
-//		print (jumpingMoles.Count.ToString () + " jumping moles!");
 		ArrayList toRemove = new ArrayList ();
 		foreach (GameObject mole in jumpingMoles) {
 				//we may store a waiting period in the dictionary at some point as well.
 				string moleName = mole.transform.name;
 				int direction = isJumping [moleName];
-//				print ("Mole position:" + direction.ToString ());
 				float speed = 200.0f;
 				//		int initialY = mole.transform.Translate.Y;
 				if ((direction == 1) || (direction == -1)) {
-//				print ("is anyone there??");
 						//move it in the designated direction
 //						mole.transform.Translate (Vector3.up * Time.deltaTime * direction);
 						float newPosition = mole.transform.localPosition.y + (Time.deltaTime * direction * speed);
 						mole.transform.localPosition = new Vector3(mole.transform.localPosition.x,newPosition,mole.transform.localPosition.z);
 						if ((direction == -1) && (mole.transform.localPosition.y < minY)) {
 								//time to make the mole stop moving.
-//							print ("finished animating a mole!");
 							jumpedCount++;
 							isJumping [moleName] = 0;
 
-//					print(jumpingMoles.Count.ToString ());
-//							jumpingMoles.Remove (mole); //take it out of the list.
 							toRemove.Add (mole);
 						mole.transform.localPosition = new Vector3(mole.transform.localPosition.x, minY, mole.transform.localPosition.z);
-//					print (jumpingMoles.Count.ToString ());
 
 
 						} else if((direction == 1) && (mole.transform.localPosition.y > maxY)) {
@@ -228,8 +228,7 @@ public class mole_behavior : MonoBehaviour {
 		hits++;
 		score += 100;
 		yourScoreboard.text = score.ToString ();
-		print ("inside mole_behavior!");
-		print (name);
+//		print (name);
 		hammerDirection = 1;//go back up, we hit something!
 
 	}
@@ -243,6 +242,7 @@ public class mole_behavior : MonoBehaviour {
 				Behaviour h;
 				string objectName = hit.collider.gameObject.name;
 				if(objectName == "mole_play") {
+					ResetGame ();
 					letsPlay = true;
 				} else if(letsPlay) {
 					if(objectName != "mole_hammer") {

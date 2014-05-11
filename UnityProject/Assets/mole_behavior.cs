@@ -120,7 +120,6 @@ public class mole_behavior : MonoBehaviour {
 			if(hammerDirection != -999) { //use this code for finished.
 				float distance = Vector3.Distance (hammer.transform.localPosition,currentTarget);
 				if((distance < 1.0f) || (hammerDirection == -1)) {
-//					print ("moving down!");
 					hammerDirection = -1;
 					hammer.transform.localPosition = Vector3.Lerp (hammer.transform.localPosition,downPosition,Time.deltaTime * strikingSpeed);
 				} 
@@ -131,7 +130,6 @@ public class mole_behavior : MonoBehaviour {
 					distance = Vector3.Distance (hammer.transform.localPosition,currentTarget);
 					if(distance < 1.1f) {
 						hammerDirection = -999;
-//						print("finished!");
 					}
 				}
 
@@ -201,50 +199,7 @@ public class mole_behavior : MonoBehaviour {
 //		if(mole.transform
 	}
 	
-//	void adjustPositioning(string axis, bool isNegative) {
-//		if (selected) {
-//			double magnitude;
-//			if(activeMode == 0) {
-//				magnitude = scale * 0.1;
-//				if(isNegative) {
-//					magnitude = (-magnitude);
-//				}
-//				float x = selected.transform.localPosition.x;
-//				float y = selected.transform.localPosition.y;
-//				float z = selected.transform.localPosition.z;
-//				if(axis.Equals("x")){
-//					x += (float)magnitude;
-//				} else if (axis.Equals ("y")) {
-//					y += (float)magnitude;
-//				} else {
-//					z += (float)magnitude;
-//				}
-//				selected.transform.localPosition = new Vector3(x,y,z);
-//				//translate
-//			} else if (activeMode == 1) {
-//				magnitude = scale;
-//				if(isNegative) {
-//					magnitude = (-magnitude);
-//				}
-//				if(axis.Equals("x")) {
-//					selected.transform.Rotate(Vector3.forward,(float)magnitude);
-//				} else if (axis.Equals ("y")) {
-//					selected.transform.Rotate (Vector3.right,(float)magnitude);
-//				} else {
-//					selected.transform.Rotate (Vector3.up,(float)magnitude);
-//				}
-//				//rotate
-//			} else if (activeMode == 2) {
-//				magnitude = scale;
-//				//this is nice, we don't care what direction it's in. Ha!
-//				float newScale = selected.transform.localScale.x * (float)magnitude;
-//				selected.transform.localScale = new Vector3(newScale,newScale,newScale);
-//			}
-//			
-//		}
-//		
-//	}
-//	
+
 	void TapSelect() {
 		//we'll want to be able to randomly select a row, and only initiate a mole jump if we don't have too many moles jumping already.
 		//maybe we need to keep an array list of the moles that are moving?
@@ -287,7 +242,7 @@ public class mole_behavior : MonoBehaviour {
 			if(Physics.Raycast (ray,out hit, 20000)) {
 				Behaviour h;
 				string objectName = hit.collider.gameObject.name;
-				if(objectName == "lets_play") {
+				if(objectName == "mole_play") {
 					letsPlay = true;
 				} else if(letsPlay) {
 					if(objectName != "mole_hammer") {
@@ -309,7 +264,8 @@ public class mole_behavior : MonoBehaviour {
 			if(Physics.Raycast (ray,out hit, 20000)) {
 				Behaviour h;
 				string objectName = hit.collider.gameObject.name;
-				if(objectName == "lets_play") {
+				print (objectName);
+				if(objectName == "mole_play") {
 					letsPlay = true;
 				} else if (letsPlay) {
 					if(objectName != "mole_hammer") {

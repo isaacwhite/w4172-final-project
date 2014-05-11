@@ -34,6 +34,7 @@ public class mole_behavior : MonoBehaviour {
 	public AudioClip gameOver;
 	public AudioClip carnival;
 	private bool isGameOver;
+	private GameObject ARCamera;
 	void Start () {
 		
 	}
@@ -60,6 +61,7 @@ public class mole_behavior : MonoBehaviour {
 		moles [2] [3] = GameObject.Find ("mole_bottom_04");
 
 
+		ARCamera = GameObject.Find ("ARCamera");
 		aMole = moles [0] [0];
 		hammer = GameObject.Find ("mole_hammer");
 		highScoreboard = (TextMesh) GameObject.Find ("mole_high_score").GetComponent (typeof(TextMesh));
@@ -306,6 +308,29 @@ public class mole_behavior : MonoBehaviour {
 						print (e.ToString ());
 					}
 				}
+			}
+		}
+	}
+
+	public void OnGUI () {
+		// POINT TOTALS 
+		if (isGameOver) {
+			GUI.Box (new Rect ((Screen.width / 4), (Screen.height / 4), (Screen.width / 2), (Screen.height / 4)), "Final Score: " + score.ToString ());
+
+			// RETRY
+			if (GUI.Button (new Rect ((Screen.width / 4), (Screen.height / 2), (Screen.width / 4), (Screen.height / 4)), "RETRY")) {
+				speaker.PlayOneShot (carnival);
+				ResetGame();
+				letsPlay = true;
+			}
+
+			// EXIT GAME, GO HOME
+			if (GUI.Button (new Rect ((Screen.width / 2), (Screen.height / 2), (Screen.width / 4), (Screen.height / 4)), "HOME")) {
+					//started = false;
+					//gameOver1 = false;
+				gameObject.SetActive (false);
+					GameLogic master = (GameLogic)ARCamera.GetComponent (typeof(GameLogic));
+					master.started = false;
 			}
 		}
 	}

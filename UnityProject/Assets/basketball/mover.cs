@@ -27,7 +27,6 @@ public class mover : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (direction == -1) {
-			print("moving left!");
 			if(Vector3.Distance (gameObject.transform.localPosition,farLeft) > minDifference) {
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition,farLeft,Time.deltaTime * speed);
 			} else {
@@ -35,7 +34,6 @@ public class mover : MonoBehaviour {
 			}
 		}
 		if (direction == 1) {
-			print ("moving right!");
 			if(Vector3.Distance (gameObject.transform.localPosition,farRight) > minDifference) {
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition,farRight,Time.deltaTime * speed);
 			} else {

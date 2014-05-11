@@ -5,7 +5,7 @@ public class Ballgame : MonoBehaviour {
 
 	public GameObject rim;
 	float rotSpeed = 60;
-	public GameLogic otherScript;
+	public basketballLogic otherScript;
 	
 	// Use this for initialization
 	void Start () {

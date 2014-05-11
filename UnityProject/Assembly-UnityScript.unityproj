@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\basketball\asdgfsahgsa.js" />
      <Compile Include="Assets\shooter\Cartoon SMG\Spin Dat.js" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\license_3rdpartynotice.txt" />

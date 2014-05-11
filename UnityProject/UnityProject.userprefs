@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/basketball/mover.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/basketball/basketballLogic.cs">
     <Files>
-      <File FileName="Assets/whack_a_mole/scripts/mole_behavior.cs" Line="152" Column="23" />
-      <File FileName="Assets/high_striker/loadStatusBar.cs" Line="28" Column="30" />
-      <File FileName="Assets/basketball/asdgfsahgsa.js" Line="1" Column="1" />
-      <File FileName="Assets/basketball/mover.cs" Line="18" Column="14" />
-      <File FileName="Assets/GameLogic.cs" Line="127" Column="33" />
+      <File FileName="Assets/GameLogic.cs" Line="46" Column="17" />
+      <File FileName="Assets/basketball/basketballLogic.cs" Line="51" Column="17" />
+      <File FileName="Assets/basketball/mover.cs" Line="36" Column="24" />
+      <File FileName="Assets/high_striker/loadStatusBar.cs" Line="24" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

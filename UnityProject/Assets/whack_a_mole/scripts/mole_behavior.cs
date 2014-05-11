@@ -62,10 +62,9 @@ public class mole_behavior : MonoBehaviour {
 
 		aMole = moles [0] [0];
 		hammer = GameObject.Find ("mole_hammer");
-		highScoreboard = (TextMesh) GameObject.Find ("high_score").GetComponent (typeof(TextMesh));
-		yourScoreboard = (TextMesh) GameObject.Find ("your_score").GetComponent (typeof(TextMesh));
-		livesLeft = (TextMesh)GameObject.Find ("lives_left").GetComponent (typeof(TextMesh));
-		startButton = GameObject.Find ("lets_play");
+		highScoreboard = (TextMesh) GameObject.Find ("mole_high_score").GetComponent (typeof(TextMesh));
+		yourScoreboard = (TextMesh) GameObject.Find ("mole_your_score").GetComponent (typeof(TextMesh));
+		livesLeft = (TextMesh)GameObject.Find ("mole_lives_left").GetComponent (typeof(TextMesh));
 		maxY = aMole.transform.localPosition.y;
 		print (maxY);
 		jumpThreshold = 92;

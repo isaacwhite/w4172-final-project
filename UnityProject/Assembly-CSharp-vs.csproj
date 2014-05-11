@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameLogic.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CloudRecoBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CylinderTargetBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\DataSetLoadBehaviour.cs" />
@@ -64,7 +63,6 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\MultiTargetBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\QCARBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\SetBGCameraLayerBehaviour.cs" />
-     <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\Shoot.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TargetHit.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TextRecoBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\TurnOffBehaviour.cs" />
@@ -73,8 +71,12 @@
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\VirtualButtonBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WebCamBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\WordBehaviour.cs" />
-     <Compile Include="Assets\loadStatusBar.cs" />
-     <Compile Include="Assets\mole.cs" />
+     <Compile Include="Assets\basketball\Ballgame.cs" />
+     <Compile Include="Assets\basketball\GameLogic.cs" />
+     <Compile Include="Assets\basketball\mover.cs" />
+     <Compile Include="Assets\high_striker\loadStatusBar.cs" />
+     <Compile Include="Assets\shooter\Shoot.cs" />
+     <Compile Include="Assets\wayFinder.cs" />
      <Compile Include="Assets\whack_a_mole\scripts\hammer_reporter.cs" />
      <Compile Include="Assets\whack_a_mole\scripts\mole_behavior.cs" />
      <None Include="Assets\readme_SDK.txt" />

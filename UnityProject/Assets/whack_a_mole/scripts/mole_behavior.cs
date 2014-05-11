@@ -24,10 +24,15 @@ public class mole_behavior : MonoBehaviour {
 	private float hammerSpeed;
 	private int hammerDirection;
 	private float strikingSpeed;
+	private AudioSource speaker;
+	public AudioClip boing;
+	public AudioClip carnival;
+	public AudioClip gameOver;
 	private int score;
 	private int hits;
 	private int jumpedCount;
 	private int highscore;
+	private bool gameIsOver;//used to determine if we should keep calling end of game stuff.
 	void Start () {
 		
 	}
@@ -53,7 +58,7 @@ public class mole_behavior : MonoBehaviour {
 		moles [2] [2] = GameObject.Find ("mole_bottom_03");
 		moles [2] [3] = GameObject.Find ("mole_bottom_04");
 
-
+		gameIsOver = false;
 		aMole = moles [0] [0];
 		hammer = GameObject.Find ("mole_hammer");
 		highScoreboard = (TextMesh) GameObject.Find ("high_score").GetComponent (typeof(TextMesh));;
@@ -73,7 +78,7 @@ public class mole_behavior : MonoBehaviour {
 		score = 0;
 		hits = 0;
 
-		gameObject.GetComponent (typeof(AudioSource));
+		speaker = (AudioSource) gameObject.GetComponent (typeof(AudioSource));
 		//now set up the values
 		//would this be better if we used the object names instead?
 		ResetGame ();
@@ -106,15 +111,23 @@ public class mole_behavior : MonoBehaviour {
 			jumpedCount = 0;
 			if(highscore < score) {
 				highscore = score;
+
 			}
 		}
 		highScoreboard.text = highscore.ToString ();
+		score = 0;
+		yourScoreboard.text = score.ToString();
+		gameIsOver = false;
 	}
 	// Update is called once per frame
 	void Update () {
 		if (hits + 10 < jumpedCount) {
-			letsPlay = false;
-			print ("Your score: " + score.ToString ());
+			if(!gameIsOver) {
+				gameIsOver = true;
+				letsPlay = false;
+				print ("Your score: " + score.ToString ());
+				speaker.PlayOneShot(gameOver);
+			}
 		}
 		if (letsPlay) {
 			reset = false;
@@ -225,6 +238,7 @@ public class mole_behavior : MonoBehaviour {
 	}
 
 	public void reportCollidedWith(string name) {
+		speaker.PlayOneShot (boing);
 		hits++;
 		score += 100;
 		yourScoreboard.text = score.ToString ();
@@ -241,9 +255,10 @@ public class mole_behavior : MonoBehaviour {
 			if(Physics.Raycast (ray,out hit, 20000)) {
 				Behaviour h;
 				string objectName = hit.collider.gameObject.name;
-				if(objectName == "mole_play") {
+				if((objectName == "mole_play") && (letsPlay == false)) {
 					ResetGame ();
 					letsPlay = true;
+					speaker.PlayOneShot (carnival);
 				} else if(letsPlay) {
 					if(objectName != "mole_hammer") {
 						currentTarget = targets[objectName];
@@ -265,7 +280,7 @@ public class mole_behavior : MonoBehaviour {
 				Behaviour h;
 				string objectName = hit.collider.gameObject.name;
 				print (objectName);
-				if(objectName == "mole_play") {
+				if((objectName == "mole_play") && (letsPlay == false)) {
 					letsPlay = true;
 				} else if (letsPlay) {
 					if(objectName != "mole_hammer") {

@@ -61,6 +61,7 @@
      <None Include="Assets\StreamingAssets\QCAR\StonesAndChips.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\StreamingAssets\QCAR\unity.txt" />
+     <None Include="Assets\StreamingAssets\QCAR\BigBox2.xml" />
      <None Include="Assets\Qualcomm Augmented Reality\Shaders\BrightTexture.shader" />
      <None Include="Assets\StonesAndChips 1.xml" />
      <None Include="Assets\StonesAndChips.xml" />

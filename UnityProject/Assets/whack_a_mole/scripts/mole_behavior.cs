@@ -35,6 +35,7 @@ public class mole_behavior : MonoBehaviour {
 	public AudioClip carnival;
 	private bool isGameOver;
 	private GameObject ARCamera;
+	public GameObject arrows;
 	void Start () {
 		
 	}
@@ -268,6 +269,7 @@ public class mole_behavior : MonoBehaviour {
 				try {
 					if((objectName == "mole_play") && (letsPlay == false)) {
 						speaker.PlayOneShot (carnival);
+						arrows.SetActive (false);
 						ResetGame ();
 						letsPlay = true;
 					} else if(letsPlay) {
@@ -295,6 +297,7 @@ public class mole_behavior : MonoBehaviour {
 				string objectName = hit.collider.gameObject.name;
 				print (objectName);
 				if((objectName == "mole_play") && (letsPlay == false)) {
+					arrows.SetActive (false);
 					speaker.PlayOneShot (carnival);
 					ResetGame ();
 					letsPlay = true;
@@ -315,23 +318,25 @@ public class mole_behavior : MonoBehaviour {
 	public void OnGUI () {
 		// POINT TOTALS 
 		if (isGameOver) {
-			GUI.Box (new Rect ((Screen.width / 4), (Screen.height / 4), (Screen.width / 2), (Screen.height / 4)), "Final Score: " + score.ToString ());
-
-			// RETRY
-			if (GUI.Button (new Rect ((Screen.width / 4), (Screen.height / 2), (Screen.width / 4), (Screen.height / 4)), "RETRY")) {
-				speaker.PlayOneShot (carnival);
-				ResetGame();
-				letsPlay = true;
-			}
-
-			// EXIT GAME, GO HOME
-			if (GUI.Button (new Rect ((Screen.width / 2), (Screen.height / 2), (Screen.width / 4), (Screen.height / 4)), "HOME")) {
-					//started = false;
-					//gameOver1 = false;
-				gameObject.SetActive (false);
-					GameLogic master = (GameLogic)ARCamera.GetComponent (typeof(GameLogic));
-					master.started = false;
-			}
+				GUIStyle button_text = new GUIStyle ("button");
+				button_text.fontSize = 40;
+				GUI.Box (new Rect ((Screen.width / 4), (Screen.height / 4), (Screen.width / 2), (Screen.height / 4)), "Final Score: " + score.ToString (), button_text);
+	
+				// RETRY
+				if (GUI.Button (new Rect ((Screen.width / 4), (Screen.height / 2), (Screen.width / 4), (Screen.height / 4)), "RETRY", button_text)) {
+						letsPlay = true;
+						ResetGame ();
+						speaker.PlayOneShot (carnival);
+				}
+	
+				// EXIT GAME, GO HOME
+				if (GUI.Button (new Rect ((Screen.width / 2), (Screen.height / 2), (Screen.width / 4), (Screen.height / 4)), "HOME", button_text)) {
+						//started = false;
+						//gameOver1 = false;
+						gameObject.SetActive (false);
+						GameLogic master = (GameLogic)ARCamera.GetComponent (typeof(GameLogic));
+						master.started = false;
+				}
 		}
 	}
 

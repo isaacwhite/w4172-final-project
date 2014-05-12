@@ -26,6 +26,9 @@ public class loadStatusBar : MonoBehaviour {
 	private float zPos;
 	public AudioClip bell;
 	private AudioSource speaker;
+	private string resultText;
+	public GameObject ARCamera;
+	public GameObject arrows;
 	// Use this for initialization
 	void Start () {
 		progress = 0;
@@ -92,6 +95,7 @@ public class loadStatusBar : MonoBehaviour {
 				GUI.enabled = true;
 				if (!hasStarted) {
 						if (GUI.Button (new Rect ((Screen.width / 2) - 180, (Screen.height / 2) - 100, 360, 200), "Start!", customButton)) {
+								arrows.SetActive (false);
 								startTime = Time.time;
 								hasStarted = true;
 								GUI.enabled = true;
@@ -114,14 +118,27 @@ public class loadStatusBar : MonoBehaviour {
 			if (restSeconds <= 3) {
 				customText.normal.textColor = Color.red;
 			}
-			
-			if (restSeconds <= 0) {
-				restSeconds = 0;
+
+			if ((restSeconds <= 0) || (progress >= 1)) {
+				if(progress>=1) {
+					progress = 1;
+					if(!isPaused){
+						speaker.PlayOneShot (bell);
+					}
+					resultText="Congrats! You won!";
+				}
+				if(restSeconds <=0) {
+					restSeconds = 0;
+					resultText="Boo, you lost!";
+				}
+				// POINT TOTALS 
+				GUIStyle button_text = new GUIStyle ("button");
+				button_text.fontSize = 40;
+				GUI.Box(new Rect((Screen.width/4),(Screen.height/4),(Screen.width/2),(Screen.height/4)), resultText, button_text);
+
 				isPaused = true;
-				//do stuff here
 				GUI.enabled = true;
-				GUI.Label (new Rect ((Screen.width / 2) - 50, (Screen.height / 2) - 50, 100, 100), "BOO YOU LOSE!!!", winText);
-				if (GUI.Button (new Rect (Screen.width - 380, 20, 360, 200), "Replay", customButton)) {
+				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "RETRY", button_text)) {
 					startTime = Time.time;
 					GUI.enabled = true;
 					progress = 0;
@@ -133,28 +150,15 @@ public class loadStatusBar : MonoBehaviour {
 					isPaused = false;
 
 				}
-				GUI.enabled = false;
-			}
-			if (progress >= 1) {
-				progress = 1;
-				if(!isPaused){
-					speaker.PlayOneShot (bell);
+				// EXIT GAME, GO HOME
+				if(GUI.Button (new Rect ((Screen.width/2),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "HOME", button_text)) {
+					//started = false;
+					//gameOver1 = false;
+					gameObject.SetActive (false);
+					GameLogic master = (GameLogic) ARCamera.GetComponent(typeof(GameLogic));
+					master.started = false;
 				}
-				//do something for winning
-				isPaused = true;
-				GUI.enabled = true;
-				GUI.Label (new Rect ((Screen.width / 2) - 50, (Screen.height / 2) - 50, 100, 100), "YAY YOU WIN!!!", winText);
-				if (GUI.Button (new Rect (Screen.width - 380, 20, 360, 200), "Replay", customButton)) {
-					startTime = Time.time;
-					GUI.enabled = true;
-					progress = 0;
-					multiplier = 0;
-					nextPress = 0;
-					dinger.renderer.material.color = Color.gray;
-//					customText.normal.textColor = Color.black;
-					hammer.transform.localRotation = Quaternion.AngleAxis (0, Vector3.up);
-					isPaused = false;
-				}
+
 				GUI.enabled = false;
 			}
 

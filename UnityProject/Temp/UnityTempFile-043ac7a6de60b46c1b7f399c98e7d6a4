@@ -2,8 +2,9 @@
 -target:library
 -nowarn:0169
 -out:'Temp/Assembly-CSharp.dll'
--r:'/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/Managed/UnityEngine.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
 -r:'Assets/Qualcomm Augmented Reality/Scripts/Internal/Qualcomm.Vuforia.UnityExtensions.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
 -define:UNITY_IPHONE
 -define:ENABLE_MICROPHONE
 -define:ENABLE_TEXTUREID_MAP
@@ -32,7 +33,9 @@
 -define:ENABLE_SINGLE_INSTANCE_BUILD_SETTING
 -define:UNITY_4_3_4
 -define:UNITY_4_3
-'Assets/GameLogic.cs'
+-define:ENABLE_PROFILER
+-define:UNITY_EDITOR
+-define:UNITY_EDITOR_OSX
 'Assets/Qualcomm Augmented Reality/Scripts/CloudRecoBehaviour.cs'
 'Assets/Qualcomm Augmented Reality/Scripts/CylinderTargetBehaviour.cs'
 'Assets/Qualcomm Augmented Reality/Scripts/DataSetLoadBehaviour.cs'
@@ -62,8 +65,9 @@
 'Assets/basketball/basketballLogic.cs'
 'Assets/basketball/mover.cs'
 'Assets/high_striker/loadStatusBar.cs'
+'Assets/mainLogic/GameLogic.cs'
 'Assets/shooter/Shoot.cs'
-'Assets/wayFinder.cs'
+'Assets/wayfinding/wayFinder.cs'
 'Assets/whack_a_mole/scripts/hammer_reporter.cs'
 'Assets/whack_a_mole/scripts/mole_behavior.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'

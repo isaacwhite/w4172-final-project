@@ -18,6 +18,9 @@ public class basketballLogic : MonoBehaviour {
 	public GameObject BasketballObjects; // holder for game objects
 	public Texture ballTexture; // texture for ball button
 	public GameLogic ARCamera;
+	public AudioClip spaceJam;
+	private AudioSource speaker;
+	public GameObject arrows;
 	
 	// Basketball variables
 	public int ballsLeft;
@@ -28,6 +31,7 @@ public class basketballLogic : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Physics.gravity *= 75;
+		speaker = (AudioSource) gameObject.GetComponent (typeof(AudioSource));
 
 	}
 	// Update is called once per frame
@@ -44,12 +48,15 @@ public class basketballLogic : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		print ("on gui!");
+		GUIStyle button_text = new GUIStyle ("button");
+		button_text.fontSize = 40;
 		if (basketball) {
-			print ("on gui!!");
 			// Start game, reset values
 			if(!playing1 && !gameOver1 && !checking1) {
-				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/4),(Screen.width/2),(Screen.height/2)), "START GAME")) {
+
+				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/4),(Screen.width/2),(Screen.height/2)), "START GAME",button_text)) {
+					speaker.PlayOneShot (spaceJam);
+					arrows.SetActive (false);
 					points = 0;
 					ballsLeft = 10;
 					timer = 30;
@@ -71,7 +78,7 @@ public class basketballLogic : MonoBehaviour {
 				// points++;
 				
 				// press button to shoot ball
-				if (GUI.Button(new Rect(Screen.width-200,Screen.height-100,200,100), ballTexture)) {
+				if (GUI.Button(new Rect(Screen.width-200,Screen.height-100,200,100), ballTexture,button_text)) {
 					if(ballsLeft > 0) {
 						ballsLeft--;
 						Rigidbody ballClone;
@@ -86,7 +93,7 @@ public class basketballLogic : MonoBehaviour {
 				}
 				
 				// end game button
-				if (GUI.Button(new Rect(0,Screen.height-100,200,100), "END GAME")) {
+				if (GUI.Button(new Rect(0,Screen.height-100,200,100), "EXIT",button_text)) {
 					checking1 = true;
 					playing1 = false;
 				}
@@ -99,13 +106,13 @@ public class basketballLogic : MonoBehaviour {
 				GUI.Box(new Rect((Screen.width/4),(Screen.height/4),(Screen.width/2),(Screen.height/4)), endGame);
 				
 				// Continue game
-				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "NO")) {
+				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "NO",button_text)) {
 					playing1 = true;
 					checking1 = false;
 				}
 				
 				// End game, show results
-				if(GUI.Button (new Rect ((Screen.width/2),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "YES")) {
+				if(GUI.Button (new Rect ((Screen.width/2),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "YES",button_text)) {
 					timer = 0;
 					gameOver1 = true;
 					checking1 = false;
@@ -118,7 +125,7 @@ public class basketballLogic : MonoBehaviour {
 				GUI.Box(new Rect((Screen.width/4),(Screen.height/4),(Screen.width/2),(Screen.height/4)), "Final Score: " + points.ToString());
 				
 				// RETRY
-				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "RETRY")) {
+				if(GUI.Button (new Rect ((Screen.width/4),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "RETRY",button_text)) {
 					points = 0;
 					timer = 30;
 					ballsLeft = 10;
@@ -127,7 +134,7 @@ public class basketballLogic : MonoBehaviour {
 				}
 				
 				// EXIT GAME, GO HOME
-				if(GUI.Button (new Rect ((Screen.width/2),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "HOME")) {
+				if(GUI.Button (new Rect ((Screen.width/2),(Screen.height/2),(Screen.width/4),(Screen.height/4)), "HOME",button_text)) {
 					ARCamera.started = false;
 					gameOver1 = false;
 					basketball = false;

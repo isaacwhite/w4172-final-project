@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameLogic.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CloudRecoBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\CylinderTargetBehaviour.cs" />
      <Compile Include="Assets\Qualcomm Augmented Reality\Scripts\DataSetLoadBehaviour.cs" />
@@ -76,8 +75,9 @@
      <Compile Include="Assets\basketball\basketballLogic.cs" />
      <Compile Include="Assets\basketball\mover.cs" />
      <Compile Include="Assets\high_striker\loadStatusBar.cs" />
+     <Compile Include="Assets\mainLogic\GameLogic.cs" />
      <Compile Include="Assets\shooter\Shoot.cs" />
-     <Compile Include="Assets\wayFinder.cs" />
+     <Compile Include="Assets\wayfinding\wayFinder.cs" />
      <Compile Include="Assets\whack_a_mole\scripts\hammer_reporter.cs" />
      <Compile Include="Assets\whack_a_mole\scripts\mole_behavior.cs" />
      <None Include="Assets\readme_SDK.txt" />
